@@ -41,7 +41,7 @@ export function loginUser (req,res){
                         isBlocked:user.isBlocked,
                         type:user.type,
                         profilePicture:user.profilePicture
-                    },"cbc-backend-key-7953")
+                    },process.env.SECRET)
                     res.json({message:"User logged in",
                         token:token
                     })
