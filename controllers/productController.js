@@ -1,5 +1,34 @@
 
 import Product from "../models/product.js";
+import { isAdmin } from "./userController.js";
+
+
+export function createProduct(req,res){
+    if (!isAdmin(req)){
+        res.json({
+            message:"Please login as administrator to add products"
+        })
+        return
+    }
+
+    const product = new Product(req.body)
+    product.save().then(()=>{
+        console.log("Product created")
+        res.json({
+            message:"Product created"
+        })
+    }
+
+    ).catch(()=>{
+        res.json({
+            message:"Product not craeted"
+        })
+    }
+)
+
+}
+
+
 
 export async function getPoducts(req,res){
     try{
@@ -37,46 +66,6 @@ export function getProductByName(req,res){
     }
 
     
-
-
-export function createProduct(req,res){
-
-    
-    if (req.user==null){
-        res.json({
-            message:"You are not logged in"
-        })
-        return
-    }
-
-    if (req.user.type != "admin"){
-        res.json({
-            message:"You are not an admin"
-        })
-        return
-    }
-    const product = new Product(req.body)
-    product.save().then(()=>{
-        console.log("Product created")
-        res.json({
-            message:"Product created"
-        })
-    }
-
-    ).catch(()=>{
-        res.json({
-            message:"Product not craeted"
-        })
-    }
-)
-
-
-
-        
-    }
-
-
-
 export function deleteProduct(req,res){
     Product.deleteOne({name:req.body.name}).then(()=>{
         res.json({
