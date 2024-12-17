@@ -39,7 +39,7 @@ export async function getPoducts(req,res){
     }
     catch(e){
         res.json({
-            message:'Error'
+            message:e
         })
     }
     }

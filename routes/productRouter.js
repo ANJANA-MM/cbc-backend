@@ -3,9 +3,10 @@ import { createProduct, deleteProduct, getPoducts, getProductByName } from "../c
 
 const productRouter=express.Router();
 
+productRouter.post("/",createProduct);
 productRouter.get("/",getPoducts);
 productRouter.get("/:name",getProductByName);
-productRouter.post("/",createProduct);
 productRouter.delete("/",deleteProduct);
+
 
 export default productRouter;
